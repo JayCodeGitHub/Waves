@@ -5,7 +5,7 @@ const Player = () => {
   const { song } = usePlayer();
   return (
     <div>
-      <audio src={Songs[song].song} controls />
+      <audio autoPlay src={Songs[song].song} controls />
       {Songs[song].title}
     </div>
   );
