@@ -1,7 +1,7 @@
 const Player = () => {
   return (
     <div>
-      <h1>Player</h1>
+      <audio src="/audio/1.mp3" controls />
     </div>
   );
 };
