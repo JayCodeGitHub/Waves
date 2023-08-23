@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 
-const SEOComponent = () => {
+const SEO = () => {
   return (
     <Helmet>
       <title>Waves</title>
@@ -12,4 +12,4 @@ const SEOComponent = () => {
   );
 };
 
-export default SEOComponent;
+export default SEO;
