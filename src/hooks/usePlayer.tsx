@@ -5,14 +5,14 @@ interface PlayerProviderProps {
 }
 
 interface PlayerContextProps {
-  song: number | null;
+  song: number;
   setSong: (arg: number) => void;
 }
 
 const PlayerContext = React.createContext({} as PlayerContextProps);
 
 export const PlayerProvider = ({ children }: PlayerProviderProps) => {
-  const [song, setSong] = useState<number | null>(null);
+  const [song, setSong] = useState<number>(0);
 
   return (
     <PlayerContext.Provider value={{ song, setSong }}>
