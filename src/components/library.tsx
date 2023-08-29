@@ -7,7 +7,7 @@ const Library = () => {
     <div>
       <h1>Library</h1>
       {Songs.map((item) => (
-        <button onClick={() => setSong(item.id)}>
+        <button key={item.id} onClick={() => setSong(item.id)}>
           <h1>{item.id}</h1>
         </button>
       ))}
