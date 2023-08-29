@@ -1,6 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { Songs } from "../assets/songs";
 import { usePlayer } from "../hooks/usePlayer";
+import { GrNext } from "react-icons/gr";
+import { GrPrevious } from "react-icons/gr";
+import { BsPauseFill } from "react-icons/bs";
+import { BsFillPlayFill } from "react-icons/bs";
 
 const Player = () => {
   const { song, setSong } = usePlayer();
@@ -101,17 +105,28 @@ const Player = () => {
       <div className="flex justify-center w-1/3 h-12 gap-2">
         <span className="flex items-center justify-center w-1/3">
           {Songs[song].id > 0 ? (
-            <button onClick={() => setSong(song - 1)}>Back</button>
+            <button onClick={() => setSong(song - 1)} aria-label="Back Button">
+              <GrPrevious className="text-xl" />
+            </button>
           ) : null}
         </span>
         <span className="flex items-center justify-center w-1/3">
           <button onClick={togglePlayPause}>
-            {isPlaying ? "Pause" : "Play"}
+            {isPlaying ? (
+              <BsPauseFill className="text-3xl" />
+            ) : (
+              <BsFillPlayFill className="text-3xl" />
+            )}
           </button>
         </span>
         <span className="flex items-center justify-center w-1/3">
           {Songs[song].id < Songs.length - 1 ? (
-            <button onClick={() => setSong(song + 1)}>Forward</button>
+            <button
+              onClick={() => setSong(song + 1)}
+              aria-label="Forward Button"
+            >
+              <GrNext className="text-xl" />
+            </button>
           ) : null}
         </span>
       </div>
