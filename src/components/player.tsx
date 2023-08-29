@@ -76,7 +76,7 @@ const Player = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-1/2 gap-12 py-10 ">
+    <div className="flex flex-col items-center justify-center w-full gap-12 px-4 py-10 lg:px-0 lg:w-1/2 ">
       <img src={Songs[song].cover} className="rounded-full " />
       <div className="flex flex-col items-center justify-center gap-2">
         <h2 className="text-2xl font-bold">{Songs[song].title}</h2>
@@ -90,7 +90,7 @@ const Player = () => {
           onTimeUpdate={handleTimeUpdate}
           className="hidden"
         />
-        <div className="flex w-full gap-4 px-4">
+        <div className="flex w-full gap-4 px-2 lg:px-4">
           <div className="w-12 ">{calculateTime(currnetTime)}</div>
           <input
             ref={progressBar}
@@ -102,7 +102,7 @@ const Player = () => {
           <div>{calculateTime(duration)}</div>
         </div>
       </div>
-      <div className="flex justify-center w-1/3 h-12 gap-2">
+      <div className="flex justify-center w-3/4 h-12 gap-2 lg:w-1/3">
         <span className="flex items-center justify-center w-1/3">
           {Songs[song].id > 0 ? (
             <button onClick={() => setSong(song - 1)} aria-label="Back Button">
