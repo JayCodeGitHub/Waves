@@ -3,9 +3,9 @@ import { Songs } from "../assets/songs";
 import { usePlayer } from "../hooks/usePlayer";
 
 const Player = () => {
-  const { song } = usePlayer();
+  const { song, setSong } = usePlayer();
 
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [duration, setDuration] = useState<number>(0);
   const [currnetTime, setCurrentTime] = useState<number>(0);
 
@@ -15,19 +15,15 @@ const Player = () => {
   useEffect(() => {
     if (audioPlayer.current) {
       audioPlayer.current.onloadedmetadata = () => {
+        setIsPlaying(false);
         const seconds = Math.floor(audioPlayer.current?.duration || 0);
         setDuration(seconds);
-        if (!audioPlayer.current!.paused) {
-          setIsPlaying(true);
-        } else {
-          setIsPlaying(false);
-        }
         if (progressBar.current != null) {
           progressBar.current!.max = seconds.toString();
         }
       };
     }
-  }, [song]);
+  }, []);
 
   const calculateTime = (secs: number) => {
     const minutes = Math.floor(secs / 60);
@@ -75,7 +71,6 @@ const Player = () => {
           ref={audioPlayer}
           src={Songs[song].song}
           controls
-          autoPlay
           onTimeUpdate={handleTimeUpdate}
           className="hidden"
           onEnded={() => setIsPlaying(false)}
@@ -93,11 +88,15 @@ const Player = () => {
         </div>
       </div>
       <div className="flex gap-2">
-        {Songs[song].id > 0 ? <button>Back</button> : null}
+        {Songs[song].id > 0 ? (
+          <button onClick={() => setSong(song - 1)}>Back</button>
+        ) : null}
         <button onClick={togglePlayPause}>
           {isPlaying ? "Pause" : "Play"}
         </button>
-        {Songs[song].id < Songs.length - 1 ? <button>Forward</button> : null}
+        {Songs[song].id < Songs.length - 1 ? (
+          <button onClick={() => setSong(song + 1)}>Forward</button>
+        ) : null}
       </div>
     </div>
   );
