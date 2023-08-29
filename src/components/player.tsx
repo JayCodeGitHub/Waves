@@ -5,19 +5,33 @@ import { usePlayer } from "../hooks/usePlayer";
 const Player = () => {
   const { song, setSong } = usePlayer();
 
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState<number>(0);
   const [currnetTime, setCurrentTime] = useState<number>(0);
 
   const audioPlayer = useRef<HTMLAudioElement | null>(null);
   const progressBar = useRef<HTMLInputElement | null>(null);
 
+  const playAudio = () => {
+    if (audioPlayer.current) {
+      setIsPlaying(true);
+      audioPlayer.current.play().catch(() => {
+        // failed because the user didn't interact with the document first
+        setIsPlaying(false);
+      });
+    }
+  };
+
   useEffect(() => {
+    setIsPlaying(true);
     if (audioPlayer.current) {
       audioPlayer.current.onloadedmetadata = () => {
-        setIsPlaying(false);
         const seconds = Math.floor(audioPlayer.current?.duration || 0);
         setDuration(seconds);
+        playAudio();
+        audioPlayer.current!.addEventListener("canplaythrough", () => {
+          audioPlayer.current!.play();
+        });
         if (progressBar.current != null) {
           progressBar.current!.max = seconds.toString();
         }
@@ -34,14 +48,12 @@ const Player = () => {
   };
 
   const togglePlayPause = () => {
-    const prevValue = isPlaying;
-    setIsPlaying(!prevValue);
-    if (audioPlayer.current) {
-      if (!prevValue) {
-        audioPlayer.current.play();
-      } else {
-        audioPlayer.current.pause();
-      }
+    if (audioPlayer.current!.paused) {
+      setIsPlaying(true);
+      audioPlayer.current!.play();
+    } else {
+      setIsPlaying(false);
+      audioPlayer.current!.pause();
     }
   };
 
@@ -60,9 +72,9 @@ const Player = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-5 py-10">
-      <img src={Songs[song].cover} className=" rounded-full" />
-      <div className="flex flex-col justify-center items-center gap-2">
+    <div className="flex flex-col items-center justify-center gap-5 py-10">
+      <img src={Songs[song].cover} className="rounded-full " />
+      <div className="flex flex-col items-center justify-center gap-2">
         <h2 className="text-2xl font-bold">{Songs[song].title}</h2>
         <h3 className="text-lg text-gray-500">{Songs[song].author}</h3>
       </div>
@@ -73,16 +85,14 @@ const Player = () => {
           controls
           onTimeUpdate={handleTimeUpdate}
           className="hidden"
-          onEnded={() => setIsPlaying(false)}
         />
         <div className="flex gap-2">
-          <div className=" w-12">{calculateTime(currnetTime)}</div>
+          <div className="w-12 ">{calculateTime(currnetTime)}</div>
           <input
             ref={progressBar}
             type="range"
             defaultValue={0}
             onChange={handleSliderChange}
-            className=""
           />
           <div>{calculateTime(duration)}</div>
         </div>
