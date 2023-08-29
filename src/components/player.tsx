@@ -72,13 +72,13 @@ const Player = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-5 py-10">
+    <div className="flex flex-col items-center justify-center w-1/2 gap-12 py-10 ">
       <img src={Songs[song].cover} className="rounded-full " />
       <div className="flex flex-col items-center justify-center gap-2">
         <h2 className="text-2xl font-bold">{Songs[song].title}</h2>
         <h3 className="text-lg text-gray-500">{Songs[song].author}</h3>
       </div>
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center w-full gap-2">
         <audio
           ref={audioPlayer}
           src={Songs[song].song}
@@ -86,27 +86,34 @@ const Player = () => {
           onTimeUpdate={handleTimeUpdate}
           className="hidden"
         />
-        <div className="flex gap-2">
+        <div className="flex w-full gap-4 px-4">
           <div className="w-12 ">{calculateTime(currnetTime)}</div>
           <input
             ref={progressBar}
             type="range"
             defaultValue={0}
             onChange={handleSliderChange}
+            className="w-full"
           />
           <div>{calculateTime(duration)}</div>
         </div>
       </div>
-      <div className="flex gap-2">
-        {Songs[song].id > 0 ? (
-          <button onClick={() => setSong(song - 1)}>Back</button>
-        ) : null}
-        <button onClick={togglePlayPause}>
-          {isPlaying ? "Pause" : "Play"}
-        </button>
-        {Songs[song].id < Songs.length - 1 ? (
-          <button onClick={() => setSong(song + 1)}>Forward</button>
-        ) : null}
+      <div className="flex justify-center w-1/3 h-12 gap-2">
+        <span className="flex items-center justify-center w-1/3">
+          {Songs[song].id > 0 ? (
+            <button onClick={() => setSong(song - 1)}>Back</button>
+          ) : null}
+        </span>
+        <span className="flex items-center justify-center w-1/3">
+          <button onClick={togglePlayPause}>
+            {isPlaying ? "Pause" : "Play"}
+          </button>
+        </span>
+        <span className="flex items-center justify-center w-1/3">
+          {Songs[song].id < Songs.length - 1 ? (
+            <button onClick={() => setSong(song + 1)}>Forward</button>
+          ) : null}
+        </span>
       </div>
     </div>
   );
