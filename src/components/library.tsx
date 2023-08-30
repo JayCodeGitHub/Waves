@@ -8,6 +8,11 @@ interface LibraryProps {
 
 const Library = ({ isLibraryVisible, setIsLibraryVisible }: LibraryProps) => {
   const { setSong } = usePlayer();
+
+  const pickSound = (id: number) => {
+    setSong(id);
+    setIsLibraryVisible(false);
+  };
   return (
     <>
       <div
@@ -23,12 +28,21 @@ const Library = ({ isLibraryVisible, setIsLibraryVisible }: LibraryProps) => {
           isLibraryVisible ? " -translate-x-0" : " -translate-x-full"
         }`}
       >
-        <h1>Library</h1>
-        {Songs.map((item) => (
-          <button key={item.id} onClick={() => setSong(item.id)}>
-            <h1>{item.id}</h1>
-          </button>
-        ))}
+        <ul className="flex flex-col">
+          {Songs.map((item) => (
+            <li
+              key={item.id}
+              onClick={() => pickSound(item.id)}
+              className="flex items-center gap-4 p-4 transition-all duration-200 cursor-pointer ase-in-out hover:bg-gray-100"
+            >
+              <img src={item.cover} className="w-1/4 rounded-lg" />
+              <span>
+                <h4 className="text-lg">{item.title}</h4>
+                <h5 className="text-gray-500 text-md">{item.author}</h5>
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
