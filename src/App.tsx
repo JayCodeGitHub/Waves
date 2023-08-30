@@ -5,17 +5,20 @@ import Player from "./components/player";
 function App() {
   const [isLibraryVisible, setIsLibraryVisible] = useState(false);
   return (
-    <div className="w-screen flex justify-center flex-col items-center lg:py-10 py-5">
-      <div className="lg:w-1/2 w-full px-5 flex justify-between gap-10">
-        <h1 className=" text-xl font-bold">Waves</h1>
+    <div className="flex flex-col items-center justify-center w-screen py-5 lg:py-10">
+      <div className="flex justify-between w-full gap-10 px-5 lg:w-1/2">
+        <h1 className="text-xl font-bold ">Waves</h1>
         <button
-          className=" text-xl"
+          className="text-xl "
           onClick={() => setIsLibraryVisible((prevValue) => !prevValue)}
         >
           Library
         </button>
       </div>
-      {isLibraryVisible ? <Library /> : null}
+      <Library
+        isLibraryVisible={isLibraryVisible}
+        setIsLibraryVisible={setIsLibraryVisible}
+      />
       <Player />
     </div>
   );
