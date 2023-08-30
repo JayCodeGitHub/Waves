@@ -73,6 +73,7 @@ const Player = () => {
     if (audioPlayer.current) {
       audioPlayer.current!.currentTime = Number(newValue);
     }
+    setIsPlaying(true);
   };
 
   return (
