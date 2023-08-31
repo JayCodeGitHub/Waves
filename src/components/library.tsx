@@ -7,7 +7,7 @@ interface LibraryProps {
 }
 
 const Library = ({ isLibraryVisible, setIsLibraryVisible }: LibraryProps) => {
-  const { setSong } = usePlayer();
+  const { song, setSong } = usePlayer();
 
   const pickSound = (id: number) => {
     setSong(id);
@@ -33,7 +33,9 @@ const Library = ({ isLibraryVisible, setIsLibraryVisible }: LibraryProps) => {
             <li
               key={item.id}
               onClick={() => pickSound(item.id)}
-              className="flex items-center gap-4 p-4 transition-all duration-200 cursor-pointer ase-in-out hover:bg-gray-100"
+              className={`flex items-center gap-4 p-4 transition-all duration-200 cursor-pointer ase-in-out hover:bg-gray-200 ${
+                item.id == song ? "bg-gray-200" : "bg-white"
+              }`}
             >
               <img src={item.cover} className="w-1/4 rounded-lg" />
               <span>
