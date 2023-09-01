@@ -9,5 +9,6 @@ Waves is a music player app that's built on React and TypeScript
 
 ## Preview ##
 
-![waves-1](https://github.com/JayCodeGitHub/Waves/assets/66550003/93716bb5-b344-4f08-8625-79fb309e63a8)
-![waves-2](https://github.com/JayCodeGitHub/Waves/assets/66550003/dde9a9e3-2e4c-4d60-8f15-12a7f33c511a)
+
+![waves-1](https://github.com/JayCodeGitHub/Waves/assets/66550003/4e95fadc-8daa-46de-9f59-f25d87664c43)
+![waves-2](https://github.com/JayCodeGitHub/Waves/assets/66550003/e7e50b73-c0c0-432b-93c8-902006ce9101)
